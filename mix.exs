@@ -11,13 +11,13 @@ defmodule ExI18n.Mixfile do
   end
 
   def application do
-    [
-    ]
+    [applications: [:yaml_elixir]]
   end
 
 
   defp deps do
     [
+      {:yaml_elixir, ">= 1.3.0"}
     ]
   end
 end

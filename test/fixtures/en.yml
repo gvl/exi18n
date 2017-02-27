@@ -1,0 +1,10 @@
+a: 1
+b: "test"
+c:
+  d: "test"
+  e:
+    f: "test"
+g:
+  - test1
+  - test2
+i: "test%{nr}"
