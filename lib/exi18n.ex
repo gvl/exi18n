@@ -1,5 +1,9 @@
 defmodule ExI18n do
-  @doc "Default locale."
+  @moduledoc """
+  ExI18n - key-based internationalization library.
+  """
+
+  @doc "Default locale set in configuration."
   def locale, do: Application.get_env(:exi18n, :default_locale)
 
   @doc "Path to directory that contains all files with translations."
@@ -10,8 +14,17 @@ defmodule ExI18n do
 
   @doc """
   Search for translation in given `locale` based on provided `key`.
+
+  ## Parameters
+
+    - `locale`: `String` with name of locale.
+    - `key`: `String` with path to translation.
+    - `values`: `Map` with values that will be interpolated.
+
+  ## Returns `String`.
   """
-  def t(locale \\ locale(), key, values \\ %{}) do
+  @spec t(String.t, String.t, Map.t) :: String.t
+  def t(locale, key, values \\ %{}) do
     translation = load_locales(locale) |> get_in(extract_keys(key))
     cond do
       is_bitstring(translation) -> insert_values(translation, values)
