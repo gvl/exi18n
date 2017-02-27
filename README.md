@@ -25,7 +25,7 @@ Add configuration to your `config/config.exs`:
 ```elixir
 config :exi18n,
   default_locale: "en",
-  path: "test/fixtures",
+  path: "priv/locales",
   storage: :yml
 ```
   - `default_locale` - default locale in your application.
