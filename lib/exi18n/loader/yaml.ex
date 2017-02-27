@@ -1,4 +1,4 @@
-defmodule ExI18n.Storage.YAML do
+defmodule ExI18n.Loader.YAML do
   @moduledoc """
   Loads translations from YAML files.
   """

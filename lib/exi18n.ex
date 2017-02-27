@@ -48,7 +48,7 @@ defmodule ExI18n do
     case :ets.lookup(:locales, locale) do
      [result|_] -> elem(result, 1)
      [] ->
-       translations = ExI18n.Storage.load(locale)
+       translations = ExI18n.Loader.load(locale)
        :ets.insert(:locales, {locale, translations})
        translations
     end

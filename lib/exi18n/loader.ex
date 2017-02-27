@@ -1,4 +1,4 @@
-defmodule ExI18n.Storage do
+defmodule ExI18n.Loader do
   @moduledoc """
   Loads translations.
   """
@@ -20,7 +20,7 @@ defmodule ExI18n.Storage do
   end
 
   @doc """
-  Returns storage module based on `type` that will load translation file.
+  Returns loader module based on `type` that will load translation file.
 
   ## Parameters
 
@@ -29,5 +29,5 @@ defmodule ExI18n.Storage do
   ## Returns `Module`.
   """
   @spec get(Atom.t) :: Module.t
-  def get(:yml), do: ExI18n.Storage.YAML
+  def get(:yml), do: ExI18n.Loader.YAML
 end
