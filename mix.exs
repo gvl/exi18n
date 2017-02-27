@@ -8,6 +8,8 @@ defmodule ExI18n.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps(),
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: ["coveralls": :test, "coveralls.travis": :test],
      source_url: "https://github.com/gvl/exi18n",
      homepage_url: "https://github.com/gvl/exi18n",
      description: "ExI18n - key-based internationalization library.",
@@ -22,8 +24,9 @@ defmodule ExI18n.Mixfile do
 
   defp deps do
     [
-      {:yaml_elixir, ">= 1.3.0"},
-      {:ex_doc, "~> 0.14", only: :dev, runtime: false}
+      {:yaml_elixir, git: "https://github.com/KamilLelonek/yaml-elixir"},
+      {:ex_doc, "~> 0.15", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.6", only: :test}
     ]
   end
 
