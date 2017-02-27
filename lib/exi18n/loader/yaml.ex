@@ -11,7 +11,10 @@ defmodule ExI18n.Loader.YAML do
 
     - `locale`: `String` with name of locale/file.
 
-  ## Returns `Map`.
+  ## Examples
+
+      iex> ExI18n.Loader.YAML.load("en")
+      %{"hello" => "world"}
   """
   @spec load(String.t) :: Map.t
   def load(locale) do

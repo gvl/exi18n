@@ -21,7 +21,25 @@ defmodule ExI18n do
     - `key`: `String` with path to translation.
     - `values`: `Map` with values that will be interpolated.
 
-  ## Returns `String`.
+  ## Examples
+
+    Example YAML file:
+    ```yml
+    hello: "Hello world"
+    hello_name: "Hello %{name}"
+    incomplete:
+      path:
+        text: "test"
+    ```
+
+      iex> ExI18n.t("en", "hello")
+      "Hello world"
+      iex> ExI18n.t("en", "hello_name", name: "Joe")
+      "Hello Joe"
+      iex> ExI18n.t("en", "invalid")
+      ** (ArgumentError) Missing translation for key: invalid
+      iex> ExI18n.t("en", "incomplete.path")
+      ** (ArgumentError) incomplete.path is incomplete path to translation.
   """
   @spec t(String.t, String.t, Map.t) :: String.t
   def t(locale, key, values \\ %{}) do

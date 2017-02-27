@@ -12,7 +12,10 @@ defmodule ExI18n.Loader do
 
     - `locale`: `String` with name of locale/file.
 
-  ## Returns `Map`.
+  ## Examples
+
+      iex> ExI18n.Loader.load("en")
+      %{"hello" => "world"}
   """
   @spec load(String.t) :: Map.t
   def load(locale) do
@@ -26,7 +29,11 @@ defmodule ExI18n.Loader do
 
     - `type`: `Atom` with name of storage type.
 
-  ## Returns `Module`.
+  ## Examples
+
+      iex> ExI18n.Loader.get(:yml)
+      ExI18n.Loader.YAML
+
   """
   @spec get(Atom.t) :: Module.t
   def get(:yml), do: ExI18n.Loader.YAML
