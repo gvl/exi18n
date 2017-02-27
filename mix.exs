@@ -24,7 +24,7 @@ defmodule ExI18n.Mixfile do
 
   defp deps do
     [
-      {:yaml_elixir, git: "https://github.com/KamilLelonek/yaml-elixir"},
+      {:yaml_elixir, "~> 1.3.0"},
       {:ex_doc, "~> 0.15", only: :dev, runtime: false},
       {:excoveralls, "~> 0.6", only: :test}
     ]
