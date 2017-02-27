@@ -1,5 +1,7 @@
 # ExI18n
 
+[![Build Status](https://travis-ci.org/gvl/exi18n.svg?branch=master)](https://travis-ci.org/gvl/exi18n)
+
 **ExI18n** is key-based internationalization library for Elixir.
 
 ## Installation
