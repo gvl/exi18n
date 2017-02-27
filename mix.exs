@@ -10,7 +10,7 @@ defmodule ExI18n.Mixfile do
      deps: deps(),
      source_url: "https://github.com/gvl/exi18n",
      homepage_url: "https://github.com/gvl/exi18n",
-     description: "ExI18n - key-based internationalization library."
+     description: "ExI18n - key-based internationalization library.",
      docs: [main: "ExI18n", extras: ["README.md"]],
      package: package()
     ]

@@ -8,3 +8,8 @@ g:
   - test1
   - test2
 i: "test%{nr}"
+hello: "Hello world"
+hello_name: "Hello %{name}"
+incomplete:
+  path:
+    text: "test"
