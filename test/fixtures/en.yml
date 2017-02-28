@@ -1,15 +1,11 @@
-a: 1
-b: "test"
-c:
-  d: "test"
-  e:
-    f: "test"
-g:
-  - test1
-  - test2
-i: "test%{nr}"
+number: 1
 hello: "Hello world"
+hello_2:
+  world: "test"
 hello_name: "Hello %{name}"
+hello_many:
+  - Joe
+  - Mike
 incomplete:
   path:
     text: "test"

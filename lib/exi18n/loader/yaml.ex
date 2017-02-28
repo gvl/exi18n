@@ -14,7 +14,7 @@ defmodule ExI18n.Loader.YAML do
   ## Examples
 
       iex> ExI18n.Loader.YAML.load("en")
-      %{"hello" => "world"}
+      %{"hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
   """
   @spec load(String.t) :: Map.t
   def load(locale) do
