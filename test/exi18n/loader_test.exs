@@ -9,4 +9,10 @@ defmodule ExI18n.LoaderTest do
   test "load/1 returns loaded translations for locale" do
     assert is_map(ExI18n.Loader.load("en"))
   end
+
+  test "load/1 returns error on missing translations" do
+    assert_raise ArgumentError, fn ->
+      ExI18n.Loader.load("invalid")
+    end
+  end
 end
