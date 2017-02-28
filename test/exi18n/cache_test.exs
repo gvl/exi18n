@@ -8,8 +8,6 @@ defmodule ExI18n.CacheTest do
 
   test "fetch/1 returns error with message" do
     {:error, msg} = ExI18n.Cache.fetch("invalid")
-    assert msg == "Failed to open file " <>
-                  "\"/Users/igor/Work/exi18n/test/fixtures/invalid.yml\":" <>
-                  " no such file or directory"
+    assert msg == "Failed to open file test/fixtures/invalid.yml"
   end
 end

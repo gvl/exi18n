@@ -17,7 +17,7 @@ defmodule ExI18n.Loader.YAML do
       %{"hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
 
       iex> ExI18n.Loader.YAML.load("invalid")
-      ** (ArgumentError) Failed to open file "/Users/igor/Work/exi18n/test/fixtures/invalid.yml": no such file or directory
+      ** (ArgumentError) Failed to open file test/fixtures/invalid.yml
   """
   @spec load(String.t) :: Map.t
   def load(locale) do
@@ -27,9 +27,8 @@ defmodule ExI18n.Loader.YAML do
       |> Path.join(locale_file(locale))
       |> read_from_file()
     catch
-      {:yamerl_exception, [errors]} ->
-        message = elem(errors, 2) |> to_string()
-        raise(ArgumentError, message)
+      {:yamerl_exception, _} ->
+        raise(ArgumentError, "Failed to open file #{ExI18n.path()}/#{locale_file(locale)}")
     end
   end
 
