@@ -52,7 +52,6 @@ defmodule ExI18n.Cache do
 
   ## Examples
 
-      iex> ExI18n.Cache.start_link()
       iex> ExI18n.Cache.fetch("en")
       %{"hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
   """
