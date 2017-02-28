@@ -3,6 +3,9 @@ defmodule ExI18n do
   ExI18n - key-based internationalization library.
   """
 
+  @doc false
+  def start(_type, _args), do: ExI18n.Supervisor.start_link()
+
   @doc "Default locale set in configuration."
   def locale, do: Application.get_env(:exi18n, :default_locale)
 
