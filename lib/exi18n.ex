@@ -40,7 +40,7 @@ defmodule ExI18n do
   """
   @spec t(String.t, String.t, Map.t) :: String.t
   def t(locale, key, values \\ %{}) do
-    translation = load_locales(locale) |> get_in(extract_keys(key))
+    translation = ExI18n.Cache.fetch(locale) |> get_in(extract_keys(key))
     cond do
       is_bitstring(translation) || is_list(translation) ->
         ExI18n.Compiler.compile(translation, values)
@@ -51,21 +51,4 @@ defmodule ExI18n do
   end
 
   defp extract_keys(key), do: String.split(key, ".")
-
-  defp load_locales(locale) do
-    init_cache()
-    case :ets.lookup(:exi18n_locales, locale) do
-     [result|_] -> elem(result, 1)
-     [] ->
-       translations = ExI18n.Loader.load(locale)
-       :ets.insert(:exi18n_locales, {locale, translations})
-       translations
-    end
-  end
-
-  defp init_cache do
-    if :ets.info(:exi18n_locales) == :undefined do
-      :ets.new(:exi18n_locales, [:named_table])
-    end
-  end
 end
