@@ -54,20 +54,18 @@ defmodule ExI18n do
 
   defp load_locales(locale) do
     init_cache()
-    case :ets.lookup(:locales, locale) do
+    case :ets.lookup(:exi18n_locales, locale) do
      [result|_] -> elem(result, 1)
      [] ->
        translations = ExI18n.Loader.load(locale)
-       :ets.insert(:locales, {locale, translations})
+       :ets.insert(:exi18n_locales, {locale, translations})
        translations
     end
   end
 
   defp init_cache do
-    try do
-      :ets.new(:locales, [:named_table])
-    rescue
-      _ -> nil
+    if :ets.info(:exi18n_locales) == :undefined do
+      :ets.new(:exi18n_locales, [:named_table])
     end
   end
 end
