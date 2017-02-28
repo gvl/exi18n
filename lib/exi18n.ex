@@ -7,13 +7,13 @@ defmodule ExI18n do
   def start(_type, _args), do: ExI18n.Supervisor.start_link()
 
   @doc "Default locale set in configuration."
-  def locale, do: Application.get_env(:exi18n, :default_locale)
+  def locale, do: Application.get_env(:exi18n, :default_locale) || "en"
 
   @doc "Path to directory that contains all files with translations."
-  def path, do: Application.get_env(:exi18n, :path)
+  def path, do: Application.get_env(:exi18n, :path) || "priv/locales"
 
   @doc "Storage type used to store translations."
-  def storage, do: Application.get_env(:exi18n, :storage)
+  def storage, do: Application.get_env(:exi18n, :storage) || :yml
 
   @doc """
   Search for translation in given `locale` based on provided `key`.

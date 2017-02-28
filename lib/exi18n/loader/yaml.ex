@@ -32,6 +32,5 @@ defmodule ExI18n.Loader.YAML do
     end
   end
 
-  defp extension, do: ".yml"
-  defp locale_file(locale), do: locale <> extension()
+  defp locale_file(locale), do: "#{locale}.yml"
 end

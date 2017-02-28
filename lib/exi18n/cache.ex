@@ -5,7 +5,7 @@ defmodule ExI18n.Cache do
 
   use GenServer
 
-  @namespace :exi18n_locales
+  @table :exi18n_locales
 
   @doc """
   Starts a cache server.
@@ -18,7 +18,7 @@ defmodule ExI18n.Cache do
   Initialize cache table.
   """
   def init(:ok) do
-    {:ok, :ets.new(@namespace, [:named_table, :protected])}
+    {:ok, :ets.new(@table, [:named_table, :protected])}
   end
 
   @doc """
@@ -26,7 +26,7 @@ defmodule ExI18n.Cache do
   """
   def handle_call({:fetch, locale}, _from, state) do
     translations =
-      case :ets.lookup(@namespace, locale) do
+      case :ets.lookup(@table, locale) do
         [result|_] -> elem(result, 1)
         [] ->
           try do
@@ -39,7 +39,7 @@ defmodule ExI18n.Cache do
   end
 
   defp cache_translations(translations, locale) do
-    :ets.insert(@namespace, {locale, translations})
+    :ets.insert(@table, {locale, translations})
     translations
   end
 

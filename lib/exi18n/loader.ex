@@ -33,7 +33,6 @@ defmodule ExI18n.Loader do
 
       iex> ExI18n.Loader.get(:yml)
       ExI18n.Loader.YAML
-
   """
   @spec get(Atom.t) :: Module.t
   def get(:yml), do: ExI18n.Loader.YAML
