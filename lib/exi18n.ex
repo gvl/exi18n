@@ -34,6 +34,9 @@ defmodule ExI18n do
 
       iex> ExI18n.t("en", "incomplete.path")
       ** (ArgumentError) incomplete.path is incomplete path to translation.
+
+      iex> ExI18n.t("en", "hello_name", name: %{"1" => "2"})
+      ** (Protocol.UndefinedError) protocol String.Chars not implemented for %{"1" => "2"}
   """
   @spec t(String.t, String.t, Map.t) :: String.t
   def t(locale, key, values \\ %{}) do
