@@ -42,17 +42,11 @@ defmodule ExI18n do
   def t(locale, key, values \\ %{}) do
     translation = load_locales(locale) |> get_in(extract_keys(key))
     cond do
-      is_bitstring(translation) -> insert_values(translation, values)
-      is_number(translation) || is_list(translation) -> translation
+      is_bitstring(translation) || is_list(translation) ->
+        ExI18n.Compiler.compile(translation, values)
+      is_number(translation) -> translation
       is_nil(translation) -> raise ArgumentError, "Missing translation for key: #{key}"
       true -> raise ArgumentError, "#{key} is incomplete path to translation."
-    end
-  end
-
-  defp insert_values(text, %{}), do: text
-  defp insert_values(text, values) do
-    Enum.reduce values, text, fn({key, value}, result) ->
-      String.replace(result, "%{#{key}}", to_string(value))
     end
   end
 
