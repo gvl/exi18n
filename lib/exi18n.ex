@@ -9,6 +9,9 @@ defmodule ExI18n do
   @doc "Default locale set in configuration."
   def locale, do: Application.get_env(:exi18n, :default_locale) || "en"
 
+  @doc "Supported locales."
+  def locales, do: Application.get_env(:exi18n, :locales) || ~w(en)
+
   @doc "Path to directory that contains all files with translations."
   def path, do: Application.get_env(:exi18n, :path) || "priv/locales"
 
@@ -43,7 +46,7 @@ defmodule ExI18n do
   """
   @spec t(String.t, String.t, Map.t) :: String.t
   def t(locale, key, values \\ %{}) do
-    translation = ExI18n.Cache.fetch(locale) |> get_in(extract_keys(key))
+    translation = get_translation(locale, key)
     cond do
       is_bitstring(translation) || is_list(translation) ->
         ExI18n.Compiler.compile(translation, values)
@@ -53,5 +56,19 @@ defmodule ExI18n do
     end
   end
 
+  defp get_translation(locale, key) do
+    parse_locale(locale)
+    |> ExI18n.Cache.fetch()
+    |> get_in(extract_keys(key))
+  end
+
   defp extract_keys(key), do: String.split(key, ".")
+
+  defp parse_locale(locale) do
+    if locale in locales() do
+      locale
+    else
+      locale()
+    end
+  end
 end

@@ -43,4 +43,8 @@ defmodule ExI18nTest do
       ExI18n.t("en", "hello_name", name: %{"1" => "2"})
     end
   end
+
+  test "t/3 fallback to default locale if passed unsupported locale" do
+    assert ExI18n.t("fr", "hello") == "Hello world"
+  end
 end
