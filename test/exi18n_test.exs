@@ -54,6 +54,7 @@ defmodule ExI18nTest do
 
   test "t/3 fallback to default locale translation if translation empty" do
     Application.put_env(:exi18n, :locales, ~w(en de))
+    Application.put_env(:exi18n, :fallback, true)
 
     assert ExI18n.t("de", "empty") == ExI18n.t("en", "empty")
 
