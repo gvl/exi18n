@@ -13,7 +13,7 @@ defmodule ExI18n do
   def locales, do: Application.get_env(:exi18n, :locales) || ~w(en)
 
   @doc "Flag to determine if fallback to default locale."
-  def fallback, do: Application.get_env(:exi18n, :fallback)
+  def fallback, do: Application.get_env(:exi18n, :fallback) || false
 
   @doc "Path to directory that contains all files with translations."
   def path, do: Application.get_env(:exi18n, :path) || "priv/locales"
