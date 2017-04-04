@@ -37,6 +37,7 @@ config :exi18n,
 Configuration parameters:
 - `default_locale` - default locale in your application. Default: `"en"`
 - `locales` - supported locales. Default: `["en"]`
+- `fallback` - fallback to default locale if translation empty. Default: `true`
 - `path` - path to your translation files. Default: `"priv/locales"`
 - `compile_prefix` - prefix for values in translations. Default: `"%{"`
 - `compile_suffix` - suffix for values in translations. Default: `"}"`

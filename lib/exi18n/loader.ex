@@ -15,7 +15,7 @@ defmodule ExI18n.Loader do
   ## Examples
 
       iex> ExI18n.Loader.load("en")
-      %{"hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
+      %{"empty" => "empty", "hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
   """
   @spec load(String.t) :: Map.t
   def load(locale) do

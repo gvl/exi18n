@@ -12,6 +12,9 @@ defmodule ExI18n do
   @doc "Supported locales."
   def locales, do: Application.get_env(:exi18n, :locales) || ~w(en)
 
+  @doc "Flag to determine if fallback to default locale."
+  def fallback, do: Application.get_env(:exi18n, :fallback)
+
   @doc "Path to directory that contains all files with translations."
   def path, do: Application.get_env(:exi18n, :path) || "priv/locales"
 
@@ -48,6 +51,7 @@ defmodule ExI18n do
   def t(locale, key, values \\ %{}) do
     translation = get_translation(locale, key)
     cond do
+      fallback() and translation == "" -> get_translation(locale(), key)
       is_bitstring(translation) || is_list(translation) ->
         ExI18n.Compiler.compile(translation, values)
       is_number(translation) -> translation

@@ -1,4 +1,5 @@
 number: 1
+empty: "empty"
 hello: "Hello world"
 hello_2:
   world: "test"

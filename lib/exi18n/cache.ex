@@ -53,7 +53,7 @@ defmodule ExI18n.Cache do
   ## Examples
 
       iex> ExI18n.Cache.fetch("en")
-      %{"hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
+      %{"empty" => "empty", "hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
   """
   @spec fetch(String.t) :: Map.t
   def fetch(locale) do

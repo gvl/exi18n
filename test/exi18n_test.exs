@@ -6,6 +6,10 @@ defmodule ExI18nTest do
     assert ExI18n.locale() == "en"
   end
 
+  test "fallback/0" do
+    assert ExI18n.fallback() == true
+  end
+
   test "path/0" do
     assert ExI18n.path() == "test/fixtures"
   end
@@ -46,5 +50,15 @@ defmodule ExI18nTest do
 
   test "t/3 fallback to default locale if passed unsupported locale" do
     assert ExI18n.t("fr", "hello") == "Hello world"
+  end
+
+  test "t/3 fallback to default locale translation if translation empty" do
+    Application.put_env(:exi18n, :locales, ~w(en de))
+
+    assert ExI18n.t("de", "empty") == ExI18n.t("en", "empty")
+
+    Application.put_env(:exi18n, :fallback, false)
+
+    assert ExI18n.t("de", "empty") != ExI18n.t("en", "empty")
   end
 end
