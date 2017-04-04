@@ -3,7 +3,7 @@ defmodule ExI18n.Mixfile do
 
   def project do
     [app: :exi18n,
-     version: "0.4.0",
+     version: "0.5.0",
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -28,8 +28,8 @@ defmodule ExI18n.Mixfile do
   defp deps do
     [
       {:yaml_elixir, "~> 1.3.0"},
-      {:ex_doc, "~> 0.15", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.6", only: :test}
+      {:ex_doc, "~> 0.15.0", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.6.3", only: :test}
     ]
   end
 
