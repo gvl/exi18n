@@ -59,6 +59,9 @@ defmodule ExI18nTest do
     Application.put_env(:exi18n, :fallback, true)
 
     assert ExI18n.t("de", "empty") == ExI18n.t("en", "empty")
+    assert_raise ArgumentError, "Missing translation for key: empty2", fn ->
+      ExI18n.t("de", "empty2")
+    end
 
     Application.put_env(:exi18n, :fallback, false)
 

@@ -50,14 +50,22 @@ defmodule ExI18n do
   @spec t(String.t, String.t, Map.t) :: String.t
   def t(locale, key, values \\ %{}) do
     translation = get_translation(locale, key)
-    cond do
-      fallback() and translation == "" -> get_translation(locale(), key)
-      is_bitstring(translation) || is_list(translation) ->
-        ExI18n.Compiler.compile(translation, values)
-      is_number(translation) -> translation
-      is_nil(translation) -> raise ArgumentError, "Missing translation for key: #{key}"
-      true -> raise ArgumentError, "#{key} is incomplete path to translation."
+    if fallback() and translation == "" do
+      get_translation(locale(), key) |> validate(key, values)
+    else
+      validate(translation, key, values)
     end
+  end
+
+  defp validate(text, _, _) when is_number(text), do: text
+  defp validate(text, _, values) when is_bitstring(text) or is_list(text) do
+    ExI18n.Compiler.compile(text, values)
+  end
+  defp validate(text, key, _) when is_nil(text) do
+    raise ArgumentError, "Missing translation for key: #{key}"
+  end
+  defp validate(_, key, _) do
+    raise ArgumentError, "#{key} is incomplete path to translation."
   end
 
   defp get_translation(locale, key) do
