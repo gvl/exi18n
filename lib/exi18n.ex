@@ -68,11 +68,7 @@ defmodule ExI18n do
 
   defp extract_keys(key), do: String.split(key, ".")
 
-  defp parse_locale(locale) do
-    if locale in locales() do
-      locale
-    else
-      locale()
-    end
+  defp parse_locale(loc) do
+    if loc in locales(), do: loc, else: locale()
   end
 end
