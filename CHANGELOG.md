@@ -1,7 +1,11 @@
 # master
 
+# 0.5.2
+
 - Enhancements
-  - Add changelog
+  - Add changelog.
+- Bug fix
+  - Fix bug for missing translation on defuault locale when translation is empty and we want to fallback to default locale. It would return nil instead of raising error.
 
 # 0.5.1
 
