@@ -12,14 +12,6 @@ defmodule ExI18nTest do
     assert ExI18n.fallback() == true
   end
 
-  test "path/0" do
-    assert ExI18n.path() == "test/fixtures"
-  end
-
-  test "loader/0" do
-    assert ExI18n.loader() == :yml
-  end
-
   test "t/3 returns proper translation for given path" do
     assert ExI18n.t("en", "number") == 1
     assert ExI18n.t("en", "hello") == "Hello world"

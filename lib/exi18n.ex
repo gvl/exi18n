@@ -15,12 +15,6 @@ defmodule ExI18n do
   @doc "Flag to determine if fallback to default locale."
   def fallback, do: Application.get_env(:exi18n, :fallback) || false
 
-  @doc "Path to directory that contains all files with translations."
-  def path, do: Application.get_env(:exi18n, :path) || "priv/locales"
-
-  @doc "Loader type used to store translations."
-  def loader, do: Application.get_env(:exi18n, :loader) || :yml
-
   @doc """
   Search for translation in given `locale` based on provided `key`.
 

@@ -2,6 +2,14 @@ defmodule ExI18n.LoaderTest do
   use ExUnit.Case
   doctest ExI18n.Loader
 
+  test "loader_type/0" do
+    assert ExI18n.Loader.loader_type() == :yml
+  end
+
+  test "options/0" do
+    assert ExI18n.Loader.options() == %{path: "test/fixtures"}
+  end
+
   test "get/1 returns loader module based on type" do
     assert ExI18n.Loader.get(:yml) == ExI18n.Loader.YAML
   end

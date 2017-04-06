@@ -20,14 +20,13 @@ defmodule ExI18n.Mixfile do
 
   def application do
     [
-      mod: {ExI18n, []},
-      applications: [:yaml_elixir]
+      mod: {ExI18n, []}
     ]
   end
 
   defp deps do
     [
-      {:yaml_elixir, "~> 1.3.0"},
+      {:yaml_elixir, "~> 1.3.0", optional: true},
       {:ex_doc, "~> 0.15.0", only: :dev, runtime: false},
       {:excoveralls, "~> 0.6.3", only: :test}
     ]

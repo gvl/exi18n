@@ -3,6 +3,12 @@ defmodule ExI18n.Loader do
   Loads translations.
   """
 
+  @doc "Loader type used to store translations."
+  def loader_type, do: Application.get_env(:exi18n, :loader) || :yml
+
+  @doc "Options for loader."
+  def options, do: Application.get_env(:exi18n, :loader_options) || %{}
+
   @doc """
   Loads translations for `locale`.
 
@@ -14,7 +20,7 @@ defmodule ExI18n.Loader do
   """
   @spec load(String.t) :: Map.t
   def load(locale) do
-    get(ExI18n.loader()).load(locale)
+    get(loader_type()).load(locale, options())
   end
 
   @doc """
@@ -31,4 +37,5 @@ defmodule ExI18n.Loader do
   """
   @spec get(Atom.t) :: Module.t
   def get(:yml), do: ExI18n.Loader.YAML
+  def get(loader), do: loader
 end
