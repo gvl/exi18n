@@ -28,10 +28,10 @@ Add configuration to your `config/config.exs`:
 config :exi18n,
   default_locale: "en",
   locales: ~w(en),
+  loader: :yml,
   path: "priv/locales",
   compile_prefix: "%{",
   compile_suffix: "}",
-  storage: :yml
 ```
 
 Configuration parameters:

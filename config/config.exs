@@ -5,6 +5,4 @@ config :exi18n,
   locales: ~w(en),
   fallback: false,
   path: "test/fixtures",
-  # compile_prefix: "%{",
-  # compile_suffix: "}",
-  storage: :yml
+  loader: :yml

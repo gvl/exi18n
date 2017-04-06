@@ -11,15 +11,10 @@ defmodule ExI18n.Loader do
   ## Parameters
 
     - `locale`: `String` with name of locale/file.
-
-  ## Examples
-
-      iex> ExI18n.Loader.load("en")
-      %{"empty" => "empty", "hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
   """
   @spec load(String.t) :: Map.t
   def load(locale) do
-    get(ExI18n.storage()).load(locale)
+    get(ExI18n.loader()).load(locale)
   end
 
   @doc """

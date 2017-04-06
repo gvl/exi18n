@@ -16,8 +16,8 @@ defmodule ExI18nTest do
     assert ExI18n.path() == "test/fixtures"
   end
 
-  test "storage/0" do
-    assert ExI18n.storage() == :yml
+  test "loader/0" do
+    assert ExI18n.loader() == :yml
   end
 
   test "t/3 returns proper translation for given path" do

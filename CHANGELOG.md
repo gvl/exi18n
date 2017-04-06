@@ -1,5 +1,8 @@
 # master
 
+- Breaking changes
+  - Rename `storage` option to `loader`
+
 # 0.5.2
 
 - Enhancements
