@@ -30,8 +30,8 @@ config :exi18n,
   locales: ~w(en),
   loader: :yml,
   path: "priv/locales",
-  compile_prefix: "%{",
-  compile_suffix: "}",
+  var_prefix: "%{",
+  var_suffix: "}",
 ```
 
 Configuration parameters:

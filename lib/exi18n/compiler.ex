@@ -3,8 +3,8 @@ defmodule ExI18n.Compiler do
   Compile text with provided values.
   """
 
-  @prefix Application.get_env(:exi18n, :compile_prefix) || "%{"
-  @suffix Application.get_env(:exi18n, :compile_suffix) || "}"
+  @prefix Application.get_env(:exi18n, :var_prefix) || "%{"
+  @suffix Application.get_env(:exi18n, :var_suffix) || "}"
 
   @doc """
   Compile text with provided values.
