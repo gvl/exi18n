@@ -11,7 +11,7 @@ Add `exi18n` to your list of dependencies and to `applications` in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:exi18n, "~> 0.4.0"}
+    {:exi18n, "~> 0.5.2"}
   ]
 end
 
