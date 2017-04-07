@@ -5,18 +5,32 @@ defmodule ExI18n.Loader.HTTPTest do
   defmodule MockAdapter do
     def call(env, _) do
       case env.url do
-        "http://localhost/en" -> %{env | status: 200, body: en_body()}
-        "http://localhost/de" -> %{env | status: 200, body: de_body()}
+        "http://localhost/en" ->
+          %{env | status: 200, body: body()}
+        "http://localhost/de" ->
+          %{env | status: 200, body: %{"root" => body()}}
+        "http://localhost/fr" ->
+          if env.headers["authorization"] != "token" do
+            raise ArgumentError, "invalid token"
+          end
+          unless env.query[:test] do
+            raise ArgumentError, "no query"
+          end
+          %{env | status: 200, body: body()}
         _ -> %{env | status: 200, body: %{}}
       end
     end
 
-    def en_body, do: %{"test" => "test"}
-    def de_body, do: %{"test" => ""}
+    def body, do: %{"test" => "test"}
   end
 
   setup do
-    options = %{url: "http://localhost", method: "GET", adapter: MockAdapter}
+    url = "http://localhost"
+    options = %{url: url, adapter: MockAdapter}
+    options2 = %{url: url, adapter: MockAdapter, root: "root"}
+    options3 = %{url: url, adapter: MockAdapter,
+                 headers: %{"Authorization" => "token"},
+                 middlewares: [{Tesla.Middleware.Query, %{test: true}}]}
     Application.put_env(:exi18n, :loader, :http)
     Application.put_env(:exi18n, :loader_options, options)
 
@@ -25,21 +39,21 @@ defmodule ExI18n.Loader.HTTPTest do
       Application.put_env(:exi18n, :loader_options, %{path: "test/fixtures"})
     end
 
-    {:ok, %{options: options, en_body: MockAdapter.en_body(),
-            de_body: MockAdapter.de_body()}}
+    {:ok, %{options: options, options2: options2, options3: options3,
+            body: MockAdapter.body()}}
   end
 
   test "load/2 returns loaded translations from API", context do
-    assert ExI18n.Loader.HTTP.load("en", context.options) == context.en_body
-    assert ExI18n.Loader.HTTP.load("de", context.options) == context.de_body
-
-    Application.put_env(:exi18n, :loader, :http)
-    Application.put_env(:exi18n, :loader_options, context.options)
-  end
-
-  test "load/2 raises error on unsupported method", context do
-    assert_raise ArgumentError, "Unsupported method PUT", fn ->
-      ExI18n.Loader.HTTP.load("en", %{context.options | method: "PUT"})
+    assert ExI18n.Loader.HTTP.load("en", context.options) == context.body
+    assert ExI18n.Loader.HTTP.load("de", context.options2) == context.body
+    assert ExI18n.Loader.HTTP.load("fr", context.options3) == context.body
+    assert_raise ArgumentError, "invalid token", fn ->
+      ExI18n.Loader.HTTP.load("fr", context.options)
+    end
+    assert_raise ArgumentError, "no query", fn ->
+      options = Map.put(context.options, :headers,
+                        %{"Authorization" => "token"})
+      ExI18n.Loader.HTTP.load("fr", options)
     end
   end
 end

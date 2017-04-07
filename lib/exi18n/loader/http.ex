@@ -3,7 +3,7 @@ if Code.ensure_loaded?(Tesla) do
     @moduledoc """
     Fetches translations from provided API.
     """
-    use Tesla, only: ~w(get post)a, docs: false
+    use Tesla, only: ~w(get)a, docs: false
 
     adapter fn(env) ->
       adapter = Map.get(ExI18n.Loader.options(), :adapter, Tesla.Adapter.Httpc)
@@ -20,11 +20,11 @@ if Code.ensure_loaded?(Tesla) do
       - `options`: `Map` with options for loader.
     """
     @spec load(String.t, Map.t) :: Map.t
-    def load(locale, %{method: method} = options) do
+    def load(locale, options) do
       options
         |> Map.take([:url, :headers, :middlewares])
         |> client([])
-        |> make_request(to_string(method), locale)
+        |> get(locale)
         |> resp_body(options)
     end
 
@@ -32,14 +32,6 @@ if Code.ensure_loaded?(Tesla) do
       response.body[to_string(root)]
     end
     defp resp_body(response, _), do: response.body
-
-    defp make_request(client, method, locale) do
-      case String.downcase(method) do
-        "get" -> get(client, locale)
-        "post" -> post(client, locale)
-        _ -> raise ArgumentError, "Unsupported method #{method}"
-      end
-    end
 
     defp client(%{url: url} = options, middlewares) do
       middlewares = [{Tesla.Middleware.BaseUrl, url} | middlewares]

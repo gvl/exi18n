@@ -124,7 +124,6 @@ end
 | Option | Required | Description |
 | :-- | :--: | :-- |
 | url | **Yes** | Translations API endpoint. |
-| method | **Yes** | HTTP method. Allowed: `"GET"`, `"POST"`. |
 | adapter | No | Adapter for Tesla. Default: `:httpc`. [Tesla Adapters](https://github.com/teamon/tesla#adapters-1) |
 | adapter_options | No | Options for adapter. |
 | headers | No | Headers passed with request to API. |
@@ -137,8 +136,7 @@ end
 config :exi18n,
   loader: :http,
   loader_options: %{
-    url: "https://www.example.com/translations", # Required
-    method: "GET", # Required
+    url: "https://www.example.com/translations",
     adapter: Tesla.Adapter.Httpc,
     adapter_options: nil,
     headers: %{"Authorization" => "Bearer <token>"},
