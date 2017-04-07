@@ -27,6 +27,8 @@ defmodule ExI18n.Mixfile do
   defp deps do
     [
       {:yaml_elixir, "~> 1.3.0", optional: true},
+      {:tesla, ">= 0.6.0", optional: true},
+      {:poison, ">= 1.0.0", optional: true},
       {:ex_doc, "~> 0.15.0", only: :dev, runtime: false},
       {:excoveralls, "~> 0.6.3", only: :test}
     ]

@@ -37,5 +37,6 @@ defmodule ExI18n.Loader do
   """
   @spec get(Atom.t) :: Module.t
   def get(:yml), do: ExI18n.Loader.YAML
+  def get(:http), do: ExI18n.Loader.HTTP
   def get(loader), do: loader
 end

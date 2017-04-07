@@ -9,6 +9,8 @@
 Add `exi18n` to your list of dependencies and to `applications` in `mix.exs`:
 
 ```elixir
+# mix.exs
+
 def deps do
   [
     {:exi18n, "~> 0.5.2"},
@@ -25,12 +27,14 @@ end
 Add configuration to your `config/config.exs`:
 
 ```elixir
+# config.exs
+
 config :exi18n,
   default_locale: "en",
   locales: ~w(en),
   fallback: false,
   loader: :yml,
-  path: "priv/locales",
+  loader_options: %{path: "priv/locales"}
   var_prefix: "%{",
   var_suffix: "}",
 ```
@@ -38,15 +42,14 @@ config :exi18n,
 ### Configuration parameters
 
 | Option | Description | Default |
-| :-- | :-- | :-- |
+| :-- | :-- | :--: |
 | default_locale | Default locale in your application. | `"en"` |
 | locales | Supported locales. | `["en"]` |
 | fallback | Fallback to default locale if translation empty. | `false` |
-| path | Path to your translation files. | `"priv/locales"` |
+| loader | Translation loader. Supported types: `:yml`, `:http`, `MyApp.Loader`. | `:yml` |
+| loader_options | Translation loader options. | `%{}` |
 | var_prefix | Prefix for values in translations. | `"%{"` |
 | var_suffix | Suffix for values in translations. | `"}"` |
-| loader | Translation loader. Supported types: `:yml`, `MyApp.Loader`. | `:yml` |
-| loader_options | Translation loader options. | `%{}` |
 
 ### Loaders
 
@@ -58,15 +61,11 @@ This loader will use yaml files from `path` to load translations.
 
 `ExI18n.Loader.YAML`
 
-##### Configuration
+##### Dependencies
 
 ```elixir
-config :exi18n,
-  loader: :yml,
-  loader_options: %{path: "priv/locales"}
-```
+# mix.exs
 
-```elixir
 def deps do
   [
     {:exi18n, "~> 0.5.2"},
@@ -80,6 +79,75 @@ def application do
     :yaml_elixir,
   ]]
 end
+```
+
+##### Configuration
+
+| Option | Required | Description |
+| :-- | :--: | :-- |
+| path | **Yes** | Path to locale files. |
+
+```elixir
+# config.exs
+
+config :exi18n,
+  loader: :yml,
+  loader_options: %{
+    path: "priv/locales"
+  }
+```
+
+#### HTTP
+
+This loader will call API to fetch translations.
+
+##### Module
+
+`ExI18n.Loader.HTTP`
+
+##### Dependencies
+
+```elixir
+# mix.exs
+
+def deps do
+  [
+    {:exi18n, "~> 0.5.2"},
+    {:tesla, "~> 0.6.0"},
+    {:poison, ">= 1.0.0"}, # for JSON middleware
+  ]
+end
+```
+
+##### Configuration
+
+| Option | Required | Description |
+| :-- | :--: | :-- |
+| url | **Yes** | Translations API endpoint. |
+| method | **Yes** | HTTP method. Allowed: `"GET"`, `"POST"`. |
+| adapter | No | Adapter for Tesla. Default: `:httpc`. [Tesla Adapters](https://github.com/teamon/tesla#adapters-1) |
+| adapter_options | No | Options for adapter. |
+| headers | No | Headers passed with request to API. |
+| middlewares | No | List of middlewares you want to use. [Tesla middlewares](https://github.com/teamon/tesla#middleware) |
+| root | No | Root key in response that contians translations. |
+
+```elixir
+# config.exs
+
+config :exi18n,
+  loader: :http,
+  loader_options: %{
+    url: "https://www.example.com/translations", # Required
+    method: "GET", # Required
+    adapter: Tesla.Adapter.Httpc,
+    adapter_options: nil,
+    headers: %{"Authorization" => "Bearer <token>"},
+    middlewares: [
+      {Tesla.Middleware.JSON, nil},
+      {MyApp.Middleware, %{option: "option"}},
+    ],
+    root: false
+  }
 ```
 
 #### Custom
@@ -103,9 +171,23 @@ defmodule MyApp.Loader do
 end
 ```
 
+##### Dependencies
+
+```elixir
+# mix.exs
+
+def deps do
+  [
+    {:exi18n, "~> 0.5.2"},
+  ]
+end
+```
+
 ##### Configuration
 
 ```elixir
+# config.exs
+
 config :exi18n,
   loader: MyApp.Loader,
   loader_options: %{my_config: "value"}

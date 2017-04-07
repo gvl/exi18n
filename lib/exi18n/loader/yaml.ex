@@ -11,6 +11,7 @@ if Code.ensure_loaded?(YamlElixir) do
     ## Parameters
 
       - `locale`: `String` with name of locale/file.
+      - `options`: `Map` with options for loader.
 
     ## Examples
 
