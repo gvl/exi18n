@@ -12,6 +12,8 @@ defmodule ExI18n.LoaderTest do
 
   test "get/1 returns loader module based on type" do
     assert ExI18n.Loader.get(:yml) == ExI18n.Loader.YAML
+    assert ExI18n.Loader.get(:http) == ExI18n.Loader.HTTP
+    assert ExI18n.Loader.get(:custom_loader) == :custom_loader
   end
 
   test "load/1 returns loaded translations for locale" do
