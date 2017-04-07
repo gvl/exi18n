@@ -1,7 +1,12 @@
 # master
 
+- Enhancements
+  - Add `HTTP` loader that will fetch translations from provided API.
+  - Add `loader_options` configuration option.
+  - Update README with available loaders and configuration options.
 - Breaking changes
-  - Rename `storage` option to `loader`
+  - Rename `storage` option to `loader`.
+  - Rename `compile_suffix/prefix` option to `var_suffix/prefix`.
 
 # 0.5.2
 
