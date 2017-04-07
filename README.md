@@ -13,7 +13,7 @@ Add `exi18n` to your list of dependencies and to `applications` in `mix.exs`:
 
 def deps do
   [
-    {:exi18n, "~> 0.5.2"},
+    {:exi18n, "~> 0.6.0"},
   ]
 end
 
@@ -68,7 +68,7 @@ This loader will use yaml files from `path` to load translations.
 
 def deps do
   [
-    {:exi18n, "~> 0.5.2"},
+    {:exi18n, "~> 0.6.0"},
     {:yaml_elixir, "~> 1.3.0"},
   ]
 end
@@ -112,7 +112,7 @@ This loader will call API to fetch translations.
 
 def deps do
   [
-    {:exi18n, "~> 0.5.2"},
+    {:exi18n, "~> 0.6.0"},
     {:tesla, "~> 0.6.0"},
     {:poison, ">= 1.0.0"}, # for JSON middleware
   ]
@@ -182,7 +182,7 @@ end
 
 def deps do
   [
-    {:exi18n, "~> 0.5.2"},
+    {:exi18n, "~> 0.6.0"},
   ]
 end
 

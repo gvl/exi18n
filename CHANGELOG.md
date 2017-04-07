@@ -1,5 +1,7 @@
 # master
 
+# 0.6.0
+
 - Enhancements
   - Add `HTTP` loader that will fetch translations from provided API.
   - Add `loader_options` configuration option.
