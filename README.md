@@ -117,6 +117,12 @@ def deps do
     {:poison, ">= 1.0.0"}, # for JSON middleware
   ]
 end
+
+def application do
+  [applications: [
+    :exi18n,
+  ]]
+end
 ```
 
 ##### Configuration
@@ -178,6 +184,12 @@ def deps do
   [
     {:exi18n, "~> 0.5.2"},
   ]
+end
+
+def application do
+  [applications: [
+    :exi18n,
+  ]]
 end
 ```
 
