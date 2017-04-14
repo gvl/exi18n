@@ -30,6 +30,7 @@ defmodule ExI18n.Mixfile do
       {:tesla, ">= 0.6.0", optional: true},
       {:poison, ">= 1.0.0", optional: true},
       {:ex_doc, "~> 0.15.0", only: :dev, runtime: false},
+      {:inch_ex, "~> 0.5", only: :docs},
       {:excoveralls, "~> 0.6.3", only: :test}
     ]
   end

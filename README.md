@@ -1,6 +1,6 @@
 # ExI18n
 
-[![hex.pm version](https://img.shields.io/hexpm/v/exi18n.svg)](https://hex.pm/packages/exi18n) [![Build Status](https://travis-ci.org/gvl/exi18n.svg?branch=master)](https://travis-ci.org/gvl/exi18n) [![Coverage Status](https://coveralls.io/repos/gvl/exi18n/badge.svg?branch=master)](https://coveralls.io/r/gvl/exi18n?branch=master) [![Deps Status](https://beta.hexfaktor.org/badge/all/github/gvl/exi18n.svg)](https://beta.hexfaktor.org/github/gvl/exi18n)
+[![hex.pm version](https://img.shields.io/hexpm/v/exi18n.svg)](https://hex.pm/packages/exi18n) [![Build Status](https://travis-ci.org/gvl/exi18n.svg?branch=master)](https://travis-ci.org/gvl/exi18n) [![Coverage Status](https://coveralls.io/repos/gvl/exi18n/badge.svg?branch=master)](https://coveralls.io/r/gvl/exi18n?branch=master) [![Inline docs](http://inch-ci.org/github/gvl/exi18n.svg?branch=master&style=shields)](http://inch-ci.org/github/gvl/exi18n) [![Deps Status](https://beta.hexfaktor.org/badge/all/github/gvl/exi18n.svg)](https://beta.hexfaktor.org/github/gvl/exi18n)
 
 **ExI18n** is key-based internationalization library for Elixir.
 

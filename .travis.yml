@@ -7,3 +7,6 @@ sudo: false
 env:
   - MIX_ENV=test
 script: mix coveralls.travis
+after_script:
+  - MIX_ENV=docs mix deps.get
+  - MIX_ENV=docs mix inch.report
