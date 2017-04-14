@@ -28,14 +28,14 @@ defmodule ExI18n.Loader do
 
   ## Parameters
 
-    - `type`: `Atom` with name of storage type.
+    - `loader`: `Atom` with name of storage type or `Module`.
 
   ## Examples
 
       iex> ExI18n.Loader.get(:yml)
       ExI18n.Loader.YAML
   """
-  @spec get(Atom.t) :: Module.t
+  @spec get(Atom.t | Module.t) :: Module.t
   def get(:yml), do: ExI18n.Loader.YAML
   def get(:http), do: ExI18n.Loader.HTTP
   def get(loader), do: loader
