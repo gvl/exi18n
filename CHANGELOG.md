@@ -1,5 +1,9 @@
 # master
 
+- Enhancements
+  - Add InchCi badge and update docs.
+  - Small code refactor for loaders.
+
 # 0.6.0
 
 - Enhancements
