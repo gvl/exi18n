@@ -164,7 +164,7 @@ config :exi18n,
       {Tesla.Middleware.JSON, nil},
       {MyApp.Middleware, %{option: "option"}},
     ],
-    root: false
+    root: "translations"
   }
 ```
 
