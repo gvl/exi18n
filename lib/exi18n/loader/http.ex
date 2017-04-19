@@ -6,8 +6,9 @@ if Code.ensure_loaded?(Tesla) do
     use Tesla, only: ~w(get)a, docs: false
 
     adapter fn(env) ->
-      adapter = Map.get(ExI18n.Loader.options(), :adapter, Tesla.Adapter.Httpc)
-      adapter_options = Map.get(ExI18n.Loader.options(), :adapter_options)
+      options = ExI18n.Loader.options()
+      adapter = Map.get(options, :adapter, Tesla.Adapter.Httpc)
+      adapter_options = Map.get(options, :adapter_options)
       adapter.call(env, adapter_options)
     end
 
