@@ -4,6 +4,18 @@
 
 **ExI18n** is key-based internationalization library for Elixir.
 
+Table of Contents
+=================
+
+* [Installation](#installation)
+* [Configuration](#configuration)
+  * [Configuration parameters](#configuration-parameters)
+* [Loaders](#loaders)
+  * [YAML](#yaml)
+  * [HTTP](#http)
+  * [Custom](#custom)
+* [Documentation](#documentation)
+
 ## Installation
 
 Add `exi18n` to your list of dependencies and to `applications` in `mix.exs`:
@@ -18,7 +30,9 @@ def deps do
 end
 
 def application do
-  [applications: [:exi18n]]
+  [applications: [
+    :exi18n,
+  ]]
 end
 ```
 
@@ -51,17 +65,17 @@ config :exi18n,
 | var_prefix | Prefix for values in translations. | `"%{"` |
 | var_suffix | Suffix for values in translations. | `"}"` |
 
-### Loaders
+## Loaders
 
-#### YAML
+### YAML
 
 This loader will use yaml files from `path` to load translations.
 
-##### Module
+#### Module
 
 `ExI18n.Loader.YAML`
 
-##### Dependencies
+#### Dependencies
 
 ```elixir
 # mix.exs
@@ -81,7 +95,7 @@ def application do
 end
 ```
 
-##### Configuration
+#### Configuration
 
 | Option | Required | Description |
 | :-- | :--: | :-- |
@@ -97,15 +111,15 @@ config :exi18n,
   }
 ```
 
-#### HTTP
+### HTTP
 
 This loader will call API to fetch translations.
 
-##### Module
+#### Module
 
 `ExI18n.Loader.HTTP`
 
-##### Dependencies
+#### Dependencies
 
 ```elixir
 # mix.exs
@@ -125,7 +139,7 @@ def application do
 end
 ```
 
-##### Configuration
+#### Configuration
 
 | Option | Required | Description |
 | :-- | :--: | :-- |
@@ -154,9 +168,9 @@ config :exi18n,
   }
 ```
 
-#### Custom
+### Custom
 
-##### Module
+#### Module
 
 `MyApp.Loader`
 
@@ -175,7 +189,7 @@ defmodule MyApp.Loader do
 end
 ```
 
-##### Dependencies
+#### Dependencies
 
 ```elixir
 # mix.exs
@@ -193,7 +207,7 @@ def application do
 end
 ```
 
-##### Configuration
+#### Configuration
 
 ```elixir
 # config.exs
