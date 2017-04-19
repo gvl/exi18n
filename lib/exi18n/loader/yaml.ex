@@ -3,7 +3,6 @@ if Code.ensure_loaded?(YamlElixir) do
     @moduledoc """
     Loads translations from YAML files.
     """
-    import YamlElixir
 
     @doc """
     Loads yaml file with translations.
@@ -24,17 +23,13 @@ if Code.ensure_loaded?(YamlElixir) do
     @spec load(String.t, Map.t) :: Map.t
     def load(locale, options \\ %{}) do
       try do
-        File.cwd!
-        |> Path.join(options.path)
-        |> Path.join(locale_file(locale))
-        |> read_from_file()
+        path = Path.join([File.cwd!, options.path, "#{locale}.yml"])
+        YamlElixir.read_from_file(path)
       catch
         {:yamerl_exception, _} ->
           raise(ArgumentError,
-                "Failed to open file #{options.path}/#{locale_file(locale)}")
+                "Failed to open file #{options.path}/#{locale}.yml")
       end
     end
-
-    defp locale_file(locale), do: "#{locale}.yml"
   end
 end
