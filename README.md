@@ -47,9 +47,9 @@ config :exi18n,
   locales: ~w(en),
   fallback: false,
   loader: :yml,
-  loader_options: %{path: "priv/locales"}
+  loader_options: %{path: "priv/locales"},
   var_prefix: "%{",
-  var_suffix: "}",
+  var_suffix: "}"
 ```
 
 ### Configuration parameters
