@@ -39,38 +39,74 @@ defmodule ExI18n do
       ** (ArgumentError) incomplete.path is incomplete path to translation.
 
       iex> ExI18n.t("en", "hello_name", name: %{"1" => "2"})
-      ** (Protocol.UndefinedError) protocol String.Chars not implemented for %{"1" => "2"}
+      ** (ArgumentError) Only string, boolean or number allowed for values.
   """
   @spec t(String.t, String.t, Map.t) :: String.t
-  def t(locale, key, values \\ %{}) do
-    translation = get_translation(locale, key)
-    if fallback() and translation == "" do
-      get_translation(locale(), key) |> validate(key, values)
-    else
-      validate(translation, key, values)
+  def t(locale, key), do: t(locale, key, %{})
+  def t(_, key, _) when not is_bitstring(key) do
+    raise ArgumentError, "Invalid key - must be string"
+  end
+  def t(locale, key, values) when not is_map(values) do
+    t(locale, key, convert_values(values))
+  end
+  def t(locale, key, values) do
+    locale
+      |> check_locale
+      |> get_translation(key)
+      |> check_translation(key)
+      |> check_values(values)
+      |> compile(key, values)
+  end
+
+  defp convert_values(values) do
+    try do
+      Enum.into(values, %{})
+    rescue
+      _ -> raise ArgumentError, "Values for translation need to be a map or keyword list"
     end
   end
 
-  defp validate(text, _, _) when is_number(text), do: text
-  defp validate(text, _, values) when is_bitstring(text) or is_list(text) do
-    ExI18n.Compiler.compile(text, values)
-  end
-  defp validate(text, key, _) when is_nil(text) do
-    raise ArgumentError, "Missing translation for key: #{key}"
-  end
-  defp validate(_, key, _) do
-    raise ArgumentError, "#{key} is incomplete path to translation."
+  defp check_locale(locale) do
+    if locale in locales(), do: locale, else: locale()
   end
 
   defp get_translation(locale, key) do
-    parse_locale(locale)
-    |> ExI18n.Cache.fetch()
-    |> get_in(extract_keys(key))
+    locale
+      |> ExI18n.Cache.fetch
+      |> get_in(extract_path(key))
   end
 
-  defp extract_keys(key), do: String.split(key, ".")
+  defp extract_path(key), do: String.split(key, ".")
 
-  defp parse_locale(loc) do
-    if loc in locales(), do: loc, else: locale()
+  defp check_translation("", key) do
+    if fallback(), do: get_translation(locale(), key), else: ""
+  end
+  defp check_translation(translation, _), do: translation
+
+  defp check_values(translation, values) do
+    values
+      |> Map.values
+      |> Enum.all?(&validate_value/1)
+      |> validate_values(translation)
+  end
+
+  defp validate_value(value) do
+    is_bitstring(value) or is_number(value) or is_boolean(value)
+  end
+
+  defp validate_values(true, translation), do: translation
+  defp validate_values(false, _) do
+    raise ArgumentError, "Only string, boolean or number allowed for values."
+  end
+
+  defp compile(text, _, _) when is_number(text), do: text
+  defp compile(text, _, values) when is_bitstring(text) or is_list(text) do
+    ExI18n.Compiler.compile(text, values)
+  end
+  defp compile(nil, key, _) do
+    raise ArgumentError, "Missing translation for key: #{key}"
+  end
+  defp compile(_, key, _) do
+    raise ArgumentError, "#{key} is incomplete path to translation."
   end
 end

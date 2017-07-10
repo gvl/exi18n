@@ -20,8 +20,37 @@ defmodule ExI18nTest do
     assert ExI18n.t("en", "hello_many") == ["Joe", "Mike"]
 
     assert ExI18n.t("en", "hello_name", name: "Joe") == "Hello Joe"
-    assert ExI18n.t("en", "hello_name", name: ["1", "2"]) == "Hello 12"
     assert ExI18n.t("en", "hello_name") == "Hello %{name}"
+  end
+
+  test "t/3 raise error for invalid key" do
+    assert_raise ArgumentError, "Invalid key - must be string", fn ->
+      ExI18n.t("en", nil)
+    end
+    assert_raise ArgumentError, "Invalid key - must be string", fn ->
+      ExI18n.t("en", %{a: 1})
+    end
+    assert_raise ArgumentError, "Invalid key - must be string", fn ->
+      ExI18n.t("en", [])
+    end
+  end
+
+  test "t/3 raise error for invalid values" do
+    assert_raise ArgumentError, "Values for translation need to be a map or keyword list", fn ->
+      ExI18n.t("en", "hello_name", [1])
+    end
+    assert_raise ArgumentError, "Values for translation need to be a map or keyword list", fn ->
+      ExI18n.t("en", "hello_name", "test")
+    end
+    assert_raise ArgumentError, "Only string, boolean or number allowed for values.", fn ->
+      ExI18n.t("en", "hello_name", name: {"1", "2"})
+    end
+    assert_raise ArgumentError, "Only string, boolean or number allowed for values.", fn ->
+      ExI18n.t("en", "hello_name", name: %{test: "1"})
+    end
+    assert_raise ArgumentError, "Only string, boolean or number allowed for values.", fn ->
+      ExI18n.t("en", "hello_name", name: [1, 2, 3])
+    end
   end
 
   test "t/3 raise error for incomplete path or missing key" do
@@ -34,11 +63,8 @@ defmodule ExI18nTest do
     assert_raise ArgumentError, "Missing translation for key: invalid", fn ->
       ExI18n.t("en", "invalid")
     end
-    assert_raise Protocol.UndefinedError, fn ->
-      ExI18n.t("en", "hello_name", name: {"1", "2"})
-    end
-    assert_raise Protocol.UndefinedError, fn ->
-      ExI18n.t("en", "hello_name", name: %{"1" => "2"})
+    assert_raise ArgumentError, "Missing translation for key: ", fn ->
+      ExI18n.t("en", "")
     end
   end
 

@@ -2,7 +2,7 @@
 
 - Enhancements
   - Add InchCi badge and update docs.
-  - Small code refactor for loaders.
+  - Small code refactor for loaders and translation function.
 
 # 0.6.0
 
