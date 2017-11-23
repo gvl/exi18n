@@ -27,7 +27,9 @@ defmodule ExI18n.Cache do
   def handle_call({:fetch, locale}, _from, state) do
     translations =
       case :ets.lookup(@table, locale) do
-        [result|_] -> elem(result, 1)
+        [result | _] ->
+          elem(result, 1)
+
         [] ->
           try do
             ExI18n.Loader.load(locale) |> cache_translations(locale)
@@ -35,6 +37,7 @@ defmodule ExI18n.Cache do
             e in ArgumentError -> {:error, e.message}
           end
       end
+
     {:reply, translations, state}
   end
 
@@ -55,7 +58,7 @@ defmodule ExI18n.Cache do
       iex> ExI18n.Cache.fetch("en")
       %{"empty" => "empty", "hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
   """
-  @spec fetch(String.t) :: Map.t
+  @spec fetch(String.t()) :: Map.t()
   def fetch(locale) do
     GenServer.call(__MODULE__, {:fetch, locale})
   end

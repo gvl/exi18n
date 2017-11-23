@@ -23,12 +23,15 @@ if Code.ensure_loaded?(YamlElixir) do
     @spec load(String.t(), Map.t()) :: Map.t()
     def load(locale, options \\ %{}) do
       try do
-        path = Path.join([File.cwd!, options.path, "#{locale}.yml"])
+        path = Path.join([resolve_path(options.path), "#{locale}.yml"])
         YamlElixir.read_from_file(path)
       catch
         {:yamerl_exception, _} ->
           raise(ArgumentError, "Failed to open file #{options.path}/#{locale}.yml")
       end
     end
+
+    defp resolve_path(path) when is_bitstring(path), do: path
+    defp resolve_path({m, f, a}), do: apply(m, f, a)
   end
 end

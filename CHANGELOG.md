@@ -1,5 +1,11 @@
 # master
 
+# 0.8.0
+
+- Enhancements
+  - Allow passing mfa for `path` option.
+  - Format code.
+
 # 0.7.0
 
 - Enhancements

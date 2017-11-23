@@ -106,7 +106,7 @@ end
 config :exi18n,
   loader: :yml,
   loader_options: %{
-    path: "priv/locales"
+    path: "priv/locales" # or {MyHelper, :path, ["priv/locales"]}
   }
 ```
 
