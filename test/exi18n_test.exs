@@ -27,9 +27,11 @@ defmodule ExI18nTest do
     assert_raise ArgumentError, "Invalid key - must be string", fn ->
       ExI18n.t("en", nil)
     end
+
     assert_raise ArgumentError, "Invalid key - must be string", fn ->
       ExI18n.t("en", %{a: 1})
     end
+
     assert_raise ArgumentError, "Invalid key - must be string", fn ->
       ExI18n.t("en", [])
     end
@@ -39,15 +41,19 @@ defmodule ExI18nTest do
     assert_raise ArgumentError, "Values for translation need to be a map or keyword list", fn ->
       ExI18n.t("en", "hello_name", [1])
     end
+
     assert_raise ArgumentError, "Values for translation need to be a map or keyword list", fn ->
       ExI18n.t("en", "hello_name", "test")
     end
+
     assert_raise ArgumentError, "Only string, boolean or number allowed for values.", fn ->
       ExI18n.t("en", "hello_name", name: {"1", "2"})
     end
+
     assert_raise ArgumentError, "Only string, boolean or number allowed for values.", fn ->
       ExI18n.t("en", "hello_name", name: %{test: "1"})
     end
+
     assert_raise ArgumentError, "Only string, boolean or number allowed for values.", fn ->
       ExI18n.t("en", "hello_name", name: [1, 2, 3])
     end
@@ -57,12 +63,15 @@ defmodule ExI18nTest do
     assert_raise ArgumentError, "incomplete is incomplete path to translation.", fn ->
       ExI18n.t("en", "incomplete")
     end
+
     assert_raise ArgumentError, "incomplete.path is incomplete path to translation.", fn ->
       ExI18n.t("en", "incomplete.path")
     end
+
     assert_raise ArgumentError, "Missing translation for key: invalid", fn ->
       ExI18n.t("en", "invalid")
     end
+
     assert_raise ArgumentError, "Missing translation for key: ", fn ->
       ExI18n.t("en", "")
     end
@@ -77,6 +86,7 @@ defmodule ExI18nTest do
     Application.put_env(:exi18n, :fallback, true)
 
     assert ExI18n.t("de", "empty") == ExI18n.t("en", "empty")
+
     assert_raise ArgumentError, "Missing translation for key: empty2", fn ->
       ExI18n.t("de", "empty2")
     end
