@@ -4,8 +4,8 @@ defmodule ExI18n.Mixfile do
   def project do
     [
       app: :exi18n,
-      version: "0.7.0",
-      elixir: "~> 1.4",
+      version: "0.8.0",
+      elixir: "~> 1.5",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       deps: deps(),
