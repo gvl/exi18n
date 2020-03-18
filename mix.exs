@@ -28,7 +28,7 @@ defmodule ExI18n.Mixfile do
   defp deps do
     [
       {:yaml_elixir, "~> 2.0", optional: true},
-      {:ex_doc, "~> 0.15.0", only: :dev, runtime: false},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
       {:inch_ex, "~> 0.5", only: :docs},
       {:excoveralls, "~> 0.6.3", only: :test}
     ]
