@@ -41,7 +41,7 @@ defmodule ExI18n do
       iex> ExI18n.t("en", "hello_name", name: %{"1" => "2"})
       ** (ArgumentError) Only string, boolean or number allowed for values.
   """
-  @spec t(String.t(), String.t(), Map.t()) :: String.t()
+  @spec t(String.t(), String.t(), map()) :: String.t()
   def t(locale, key), do: t(locale, key, %{})
 
   def t(_, key, _) when not is_bitstring(key) do

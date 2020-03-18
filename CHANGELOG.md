@@ -1,5 +1,13 @@
 # master
 
+# 0.9.0
+
+- Enhancements
+  - Code refactor
+  - Update dependencies
+- Breaking changes:
+  - Remove HTTP loader
+
 # 0.8.0
 
 - Enhancements

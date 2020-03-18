@@ -11,7 +11,6 @@
   * [Configuration parameters](#configuration-parameters)
 * [Loaders](#loaders)
   * [YAML](#yaml)
-  * [HTTP](#http)
   * [Custom](#custom)
 * [Documentation](#documentation)
 
@@ -24,7 +23,7 @@ Add `exi18n` to your list of dependencies and to `applications` in `mix.exs`:
 
 def deps do
   [
-    {:exi18n, "~> 0.6.0"},
+    {:exi18n, "~> 0.9.0"},
   ]
 end
 
@@ -81,8 +80,8 @@ This loader will use yaml files from `path` to load translations.
 
 def deps do
   [
-    {:exi18n, "~> 0.6.0"},
-    {:yaml_elixir, "~> 1.3.0"},
+    {:exi18n, "~> 0.9.0"},
+    {:yaml_elixir, "~> 2.0"},
   ]
 end
 
@@ -107,63 +106,6 @@ config :exi18n,
   loader: :yml,
   loader_options: %{
     path: "priv/locales" # or {MyHelper, :path, ["priv/locales"]}
-  }
-```
-
-### HTTP
-
-This loader will call API to fetch translations.
-
-#### Module
-
-`ExI18n.Loader.HTTP`
-
-#### Dependencies
-
-```elixir
-# mix.exs
-
-def deps do
-  [
-    {:exi18n, "~> 0.6.0"},
-    {:tesla, "~> 0.6.0"},
-    {:poison, ">= 1.0.0"}, # for JSON middleware
-  ]
-end
-
-def application do
-  [applications: [
-    :exi18n,
-  ]]
-end
-```
-
-#### Configuration
-
-| Option | Required | Description |
-| :-- | :--: | :-- |
-| url | **Yes** | Translations API endpoint. |
-| adapter | No | Adapter for Tesla. Default: `:httpc`. [Tesla Adapters](https://github.com/teamon/tesla#adapters-1) |
-| adapter_options | No | Options for adapter. |
-| headers | No | Headers passed with request to API. |
-| middlewares | No | List of middlewares you want to use. [Tesla middlewares](https://github.com/teamon/tesla#middleware) |
-| root | No | Root key in response that contians translations. |
-
-```elixir
-# config.exs
-
-config :exi18n,
-  loader: :http,
-  loader_options: %{
-    url: "https://www.example.com/translations",
-    adapter: Tesla.Adapter.Httpc,
-    adapter_options: nil,
-    headers: %{"Authorization" => "Bearer <token>"},
-    middlewares: [
-      {Tesla.Middleware.JSON, nil},
-      {MyApp.Middleware, %{option: "option"}},
-    ],
-    root: "translations"
   }
 ```
 
@@ -195,7 +137,7 @@ end
 
 def deps do
   [
-    {:exi18n, "~> 0.6.0"},
+    {:exi18n, "~> 0.9.0"},
   ]
 end
 

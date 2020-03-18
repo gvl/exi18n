@@ -25,7 +25,7 @@ defmodule ExI18n.Compiler do
       iex> ExI18n.Compiler.compile(["hello %{test}", "No.%{nr}"], %{"test" => "world", "nr" => 1})
       ["hello world", "No.1"]
   """
-  @spec compile(String.t() | List.t(), Map.t()) :: String.t()
+  @spec compile(String.t() | List.t(), map()) :: String.t()
   def compile(text, values) when is_bitstring(text) do
     Enum.reduce(values, text, fn {key, value}, result ->
       String.replace(result, variable(key), to_string(value))

@@ -7,7 +7,8 @@ defmodule ExI18n.CacheTest do
   end
 
   test "fetch/1 returns error with message" do
-    {:error, msg} = ExI18n.Cache.fetch("invalid")
-    assert msg == "Failed to open file test/fixtures/invalid.yml"
+    assert_raise ArgumentError,
+                 "\"Locale: invalid\\nError: \\\"Failed to open file test/fixtures/invalid.yml\\\"\\n\"",
+                 fn -> ExI18n.Cache.fetch("invalid") end
   end
 end

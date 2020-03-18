@@ -3,6 +3,7 @@ if Code.ensure_loaded?(YamlElixir) do
     @moduledoc """
     Loads translations from YAML files.
     """
+    @behaviour ExI18n.Loader
 
     @doc """
     Loads yaml file with translations.
@@ -15,19 +16,18 @@ if Code.ensure_loaded?(YamlElixir) do
     ## Examples
 
         iex> ExI18n.Loader.YAML.load("en", %{path: "test/fixtures"})
-        %{"empty" => "empty", "hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}
+        {:ok, %{"empty" => "empty", "hello" => "Hello world", "hello_2" => %{"world" => "test"},"hello_many" => ["Joe", "Mike"], "hello_name" => "Hello %{name}","incomplete" => %{"path" => %{"text" => "test"}}, "number" => 1}}
 
         iex> ExI18n.Loader.YAML.load("invalid", %{path: "test/fixtures"})
-        ** (ArgumentError) Failed to open file test/fixtures/invalid.yml
+        {:error, "Failed to open file test/fixtures/invalid.yml"}
     """
-    @spec load(String.t(), Map.t()) :: Map.t()
+    @impl true
     def load(locale, options \\ %{}) do
-      try do
-        path = Path.join([resolve_path(options.path), "#{locale}.yml"])
-        YamlElixir.read_from_file(path)
-      catch
-        {:yamerl_exception, _} ->
-          raise(ArgumentError, "Failed to open file #{options.path}/#{locale}.yml")
+      with path <- Path.join([resolve_path(options.path), "#{locale}.yml"]),
+           {:ok, translations} <- YamlElixir.read_from_file(path) do
+        {:ok, translations}
+      else
+        {:error, _} -> {:error, "Failed to open file #{options.path}/#{locale}.yml"}
       end
     end
 
