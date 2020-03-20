@@ -85,8 +85,10 @@ defmodule ExI18n do
     if fallback(), do: get_translation(locale(), key), else: ""
   end
 
-  defp check_translation(nil, key), do: check_translation("", key)
-
+  defp check_translation(nil, key) do
+    if fallback(), do: get_translation(locale(), key), else: nil
+  end
+  
   defp check_translation(translation, _), do: translation
 
   defp check_values(translation, values) do
