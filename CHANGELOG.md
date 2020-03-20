@@ -1,5 +1,10 @@
 # master
 
+# 0.9.1
+
+- Bug fix
+  - fallback bug when key does not exist on non default language #1 (by @werkzeugh)
+
 # 0.9.0
 
 - Enhancements
