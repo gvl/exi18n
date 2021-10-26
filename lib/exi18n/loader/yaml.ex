@@ -23,11 +23,19 @@ if Code.ensure_loaded?(YamlElixir) do
     """
     @impl true
     def load(locale, options \\ %{}) do
-      with path <- Path.join([resolve_path(options.path), "#{locale}.yml"]),
-           {:ok, translations} <- YamlElixir.read_from_file(path) do
-        {:ok, translations}
+       build_locale_file(locale, resolve_path(options.path)) |> YamlElixir.read_from_string
+    end
+
+    def build_locale_file(locale, path) do
+      file_path = [path, "#{locale}.yml"] |> Path.join
+      folder_path = [path, locale] |> Path.join
+      if file_path |> File.exists? do
+        file_path |> File.read!
       else
-        {:error, _} -> {:error, "Failed to open file #{options.path}/#{locale}.yml"}
+        file_paths = [path, locale, "*.yml"] |> Path.join |> Path.wildcard
+        Enum.map(file_paths, fn file_path -> 
+          file_path |> File.read!
+        end) |> Enum.join("\n")
       end
     end
 
